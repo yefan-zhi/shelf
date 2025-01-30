@@ -73,7 +73,7 @@ class Shelf():
                         count += 1
                         write_string_to_htmls('<div class="image"><img src="')
                         self.html_main_local += pic_path
-                        self.html_main_remote += "https://yefan-zhi.github.io/shelf/catalog/" + category + "/" + "pic"
+                        self.html_main_remote += "https://yefan-zhi.github.io/shelf/catalog/" + category + "/" + pic
                         write_string_to_htmls('" height={}>'.format(int(height ** 0.6 * 3)))
                         if count_every > 0 and count % count_every == 0:
                             write_string_to_htmls("<div class='caption-left'>{}</div>".format(count))
