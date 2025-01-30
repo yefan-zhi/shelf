@@ -17,6 +17,8 @@ class Shelf():
         if not os.path.isabs(root_folder_path):
             self.root_folder_path = pathlib.Path(os.path.realpath(__file__)).parent.absolute()
         self.catalog_path = os.path.join(self.root_folder_path, catalog_folder)
+        self.html_main_local = ""
+        self.html_main_remote = ""
 
     def generate_html_file(self, count_every=0):
 
@@ -51,7 +53,12 @@ class Shelf():
 </body>
 </html>'''
 
-        html_main = ""
+        self.html_main_local = ""
+        self.html_main_remote = ""
+
+        def write_string_to_htmls(s):
+            self.html_main_local += s
+            self.html_main_remote += s
 
         count = 0
         for category in os.listdir(self.catalog_path):
@@ -64,15 +71,20 @@ class Shelf():
                         width, height = img.size
                         height = min(3000, height)
                         count += 1
-                        html_main += '<div class="image"><img src="{}" height={}>'.format(
-                            pic_path, int(height ** 0.6 * 3))
+                        write_string_to_htmls('<div class="image"><img src="')
+                        self.html_main_local += pic_path
+                        self.html_main_remote += "https://yefan-zhi.github.io/shelf/catalog/" + category + "/" + "pic"
+                        write_string_to_htmls('" height={}>'.format(int(height ** 0.6 * 3)))
                         if count_every > 0 and count % count_every == 0:
-                            html_main += "<div class='caption-left'>{}</div>".format(count)
-                        html_main += "</div>"
+                            write_string_to_htmls("<div class='caption-left'>{}</div>".format(count))
+                        write_string_to_htmls("</div>")
 
-            html = html_begin + html_main + html_end
-            with codecs.open(os.path.join(self.root_folder_path, "Shelf.html"), 'w',
-                             "utf-8") as html_file:
-                html_file.write(html)
+        with codecs.open(os.path.join(self.root_folder_path, "Shelf.html"), 'w',
+                         "utf-8") as html_file:
+            html_file.write(html_begin + self.html_main_local + html_end)
+
+        with codecs.open(os.path.join(self.root_folder_path, "index.html"), 'w',
+                         "utf-8") as html_file:
+            html_file.write(html_begin + self.html_main_remote + html_end)
 
         print(count, "books.")
