@@ -45,6 +45,5 @@ root
 
 ## 网页生成
 
-程序十分简单，由Python写就，用到了[Pillow](https://pypi.org/project/pillow/)库。
+程序十分简单，由Python写就，用到了[Pillow](https://pypi.org/project/pillow/)库。`Main.py`初始化中设置远程github库地址。程序运行后共生成两个文件`Shelf.html`和`index.html`，分别为本地和推送后的网页。此外程序输出总书籍数。
 
-（readme WORK IN PROGRESS）
