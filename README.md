@@ -3,6 +3,7 @@
 ![img.jpg](img.jpg)
 _Shelf 提供了一个快捷的实体书籍统计和管理方式。_
 
+在线案例：https://yefan-zhi.github.io/shelf/
 
 ## 缘起
 
