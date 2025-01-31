@@ -77,7 +77,7 @@ class Shelf():
                         write_string_to_htmls('<div class="image"><img src="')
                         self.html_main_local += pic_path
                         self.html_main_remote += self.remote_folder + "/" + self.catalog_folder + "/" + category + "/" + pic
-                        write_string_to_htmls('" height={}>'.format(int(height ** 0.6 * 3)))
+                        write_string_to_htmls('" height={}>'.format(int(height ** 0.8)))
                         if count_every > 0 and count % count_every == 0:
                             write_string_to_htmls("<div class='caption-left'>{}</div>".format(count))
                         write_string_to_htmls("</div>")
