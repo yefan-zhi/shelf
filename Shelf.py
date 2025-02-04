@@ -25,7 +25,7 @@ class Shelf():
 
     def generate_html_file(self, count_every=0):
 
-        html_begin = '''<html>
+        html_begin_1 = '''<html>
 <head>
     <meta charset="UTF-8">
     <style>
@@ -49,6 +49,9 @@ class Shelf():
             font-size: 14px;
         }
     </style>
+	<title>'''
+        html_begin_2 = '''</title>
+	</head>
 </head>
 <body>
 '''
@@ -90,7 +93,7 @@ class Shelf():
 
         collect_folder(self.catalog_folder)
         write_string_to_htmls("<!-- {} books. -->".format(self.count))
-
+        html_begin = html_begin_1 + "{} books".format(self.count) + html_begin_2
         with codecs.open(os.path.join(self.root_folder_path, "Shelf.html"), 'w',
                          "utf-8") as html_file:
             html_file.write(html_begin + self.html_main_local + html_end)
