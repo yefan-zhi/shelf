@@ -81,9 +81,9 @@ class Shelf():
                             self.count += 1
                             pdf = None
                             if os.path.isfile(item_path[:-4] + ".pdf"):
-                                pdf = item_path[:-4] + ".pdf"
+                                pdf = item[:-4] + ".pdf"
                             elif os.path.isdir(item_path[:-4] + ".PDF"):
-                                pdf = item_path[:-4] + ".PDF"
+                                pdf = item[:-4] + ".PDF"
                             if pdf:
                                 write_string_to_htmls('<div class="image"><a href="')
                                 self.html_main_local += os.path.join(current_path, pdf)
