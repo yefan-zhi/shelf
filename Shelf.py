@@ -23,7 +23,7 @@ class Shelf():
         self.html_main_local = ""
         self.html_main_remote = ""
 
-    def generate_html_file(self, count_every=0):
+    def generate_html_file(self):
 
         html_begin_1 = '''<html>
 <head>
@@ -79,13 +79,24 @@ class Shelf():
                             width, height = img.size
                             height = min(3000, height)
                             self.count += 1
-                            write_string_to_htmls('<div class="image"><img src="')
-                            self.html_main_local += item_path
-                            self.html_main_remote += self.remote_folder + "/" + current_folder + "/" + item
-                            write_string_to_htmls('" height={}>'.format(int(height ** 0.8)))
-                            if count_every > 0 and self.count % count_every == 0:
-                                write_string_to_htmls("<div class='caption-left'>{}</div>".format(self.count))
-                            write_string_to_htmls("</div>")
+                            pdf = None
+                            if os.path.isfile(item_path[:-4] + ".pdf"):
+                                pdf = item_path[:-4] + ".pdf"
+                            elif os.path.isdir(item_path[:-4] + ".PDF"):
+                                pdf = item_path[:-4] + ".PDF"
+                            if pdf:
+                                write_string_to_htmls('<div class="image"><a href="')
+                                self.html_main_local += os.path.join(current_path, pdf)
+                                self.html_main_remote += self.remote_folder + "/" + current_folder + "/" + pdf
+                                write_string_to_htmls('"><img src="')
+                                self.html_main_local += item_path
+                                self.html_main_remote += self.remote_folder + "/" + current_folder + "/" + item
+                                write_string_to_htmls('" height={}></a></div>'.format(int(height ** 0.8)))
+                            else:
+                                write_string_to_htmls('<div class="image"><img src="')
+                                self.html_main_local += item_path
+                                self.html_main_remote += self.remote_folder + "/" + current_folder + "/" + item
+                                write_string_to_htmls('" height={}></div>'.format(int(height ** 0.8)))
                     except:
                         pass
                 else:
